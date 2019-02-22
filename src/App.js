@@ -8,6 +8,7 @@ class App extends Component {
       currentLaura: {},
       discoverLauras: lauras,
       matchedLauras: [],
+      showMatches: false,
     };
   }
 
@@ -31,27 +32,55 @@ class App extends Component {
     this.setCurrentLaura();
   }
 
+  toggleDiscoverView = () => {
+    this.setState({
+      showMatches: false
+    });
+  }
+
+  toggleMatchesView = () => {
+    this.setState({
+      showMatches: true
+    });
+  }
+
   render() {
     // TODO: add loading state when currentLaura is empty
+    const matches = this.state.matchedLauras.map((match) => {
+      return (
+        <div key={match.id}>
+          {match.name}
+        </div>
+      )
+    })
 
     return (
       <div className="App">
         <header>
           pizza meets doughnut
         </header>
-        <div className='discover-container'>
-          {this.state.currentLaura ?
-            <div>
-              <p>{this.state.currentLaura.name}</p>
-              <button onClick={this.onLike}>
-                heart
-              </button>
-            </div> :
-            <div>
-              You've matched with all the Lauras
-            </div>
-          }
-        </div>
+        {this.state.showMatches ?
+          <div className='matches-container'>
+            {matches}
+          </div> :
+          <div className='discover-container'>
+            {this.state.currentLaura ?
+              <div>
+                <p>{this.state.currentLaura.name}</p>
+                <button onClick={this.onLike}>
+                  heart
+                </button>
+              </div> :
+              <div>
+                You've matched with all the Lauras
+              </div>
+            }
+          </div>
+        }
+        <nav>
+          <button onClick={this.toggleDiscoverView}>discover</button>
+          <button onClick={this.toggleMatchesView}>matches</button>
+        </nav>
       </div>
     );
   }
