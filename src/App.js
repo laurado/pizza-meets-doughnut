@@ -15,14 +15,20 @@ class App extends Component {
     this.setCurrentLaura();
   }
 
-  setCurrentLaura() {
-    if(this.state.discoverLauras.length > 0) {
-      const [first, ...rest] = this.state.discoverLauras;
-      this.setState({
-        discoverLauras: rest,
-        currentLaura: first,
-      })
-    }
+  setCurrentLaura = () => {
+    const [first, ...rest] = this.state.discoverLauras;
+    this.setState({
+      discoverLauras: rest,
+      currentLaura: first,
+    });
+  }
+
+  onLike = () => {
+    const newMatchedLauras = [this.state.currentLaura, ...this.state.matchedLauras];
+    this.setState({
+      matchedLauras: newMatchedLauras
+    });
+    this.setCurrentLaura();
   }
 
   render() {
@@ -34,7 +40,14 @@ class App extends Component {
           pizza meets doughnut
         </header>
         <div className='discover-container'>
-          <p>{this.state.currentLaura.name}</p>
+          {this.state.currentLaura &&
+            <div>
+              <p>{this.state.currentLaura.name}</p>
+              <button onClick={this.onLike}>
+                heart
+              </button>
+            </div>
+          }
         </div>
       </div>
     );
