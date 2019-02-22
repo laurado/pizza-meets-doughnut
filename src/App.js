@@ -40,12 +40,15 @@ class App extends Component {
           pizza meets doughnut
         </header>
         <div className='discover-container'>
-          {this.state.currentLaura &&
+          {this.state.currentLaura ?
             <div>
               <p>{this.state.currentLaura.name}</p>
               <button onClick={this.onLike}>
                 heart
               </button>
+            </div> :
+            <div>
+              You've matched with all the Lauras
             </div>
           }
         </div>
