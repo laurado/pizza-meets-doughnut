@@ -61,7 +61,12 @@ class App extends Component {
         </header>
         {this.state.showMatches ?
           <div className='matches-container'>
-            {matches}
+            {this.state.matchedLauras.length > 0 ?
+              matches :
+              <div>
+                You have no matches yet
+              </div>
+            }
           </div> :
           <div className='discover-container'>
             {this.state.currentLaura ?
